@@ -1,7 +1,52 @@
-<html>
-    <h1>Michael Gordon Jardine 
-    </h1>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Michael Gordon Jardine</title>
+
+        <!-- Double-underline styles: two approaches shown below -->
+        <style>
+            /* Option 1 — native CSS (modern browsers): double underline
+                 - text-decoration-style: double
+                 - configurable thickness and offset
+            */
+            h1.native-double {
+                font-size: 2.25rem;
+                text-decoration-line: underline;
+                text-decoration-style: double;
+                text-decoration-thickness: 4px;
+                text-decoration-color: currentColor; /* same color as text */
+                text-underline-offset: 6px; /* space between text and underline */
+            }
+
+            /* Option 2 — pseudo-element fallback (works in older browsers and gives full control)
+                 Use the .double-underline class if you need consistent, configurable double lines.
+            */
+            .double-underline {
+                display: inline-block; /* shrink to text width */
+                position: relative;
+                padding-bottom: 0.35rem; /* make room for the lines */
+            }
+
+            .double-underline::before,
+            .double-underline::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: 4px; /* line thickness */
+                background: currentColor; /* same color as text */
+            }
+
+            /* first line sits a little under the text, second line sits further down */
+            .double-underline::before { bottom: -8px; }
+            .double-underline::after  { bottom: -14px; }
+        </style>
+    </head>
+
     <body>
+        <h1 class="double-underline">Michael Gordon Jardine</h1>
         <h2>Welcome to my personal webpage!</h2>
         <h3>About Me</h3>
         <p>
