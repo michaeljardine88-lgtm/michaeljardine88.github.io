@@ -6,8 +6,8 @@
                 font-size: 2.25rem;
                 text-decoration-line: underline;
                 text-decoration-style: double;
-                text-decoration-thickness: 3px;
-                text-decoration-color: currentColor; /* same color as text */
+                text-decoration-thickness: 1px;
+                text-decoration-color: #cccccc;
                 text-underline-offset: 6px; /* space between text and underline */
             }
 
@@ -29,8 +29,8 @@
                 position: absolute;
                 left: 0;
                 right: 0;
-                height: 3px; /* line thickness */
-                background: currentColor; /* same color as text */
+                height: 1px; /* line thickness */
+                background: #cccccc; /* same color as text */
             }
 
             /* first line sits a little under the text, second line sits further down */
@@ -51,8 +51,8 @@
             .double-underline.fullwidth::after {
                 left: 0;   /* span from left */
                 right: 0;  /* to right */
-                height: 4px; /* keep thickness consistent; customize as needed */
-                background: currentColor;
+                height: 1px; /* keep thickness consistent; customize as needed */
+                background: #cccccc;
             }
 
             /* tweak vertical positions when fullwidth (slightly further down than inline) */
