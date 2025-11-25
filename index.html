@@ -23,6 +23,9 @@
             /* Option 2 — pseudo-element fallback (works in older browsers and gives full control)
                  Use the .double-underline class if you need consistent, configurable double lines.
             */
+            /* Default: shrink to text width (keeps lines under just the text). Add the
+                 `.fullwidth` modifier to make the double underline stretch across the
+                 full width of the container while keeping the text centered. */
             .double-underline {
                 display: inline-block; /* shrink to text width */
                 position: relative;
@@ -42,11 +45,33 @@
             /* first line sits a little under the text, second line sits further down */
             .double-underline::before { bottom: -8px; }
             .double-underline::after  { bottom: -14px; }
+
+            /* Full-width modifier — stretches lines across the container while keeping
+                 the heading text centered. Use the class: `double-underline fullwidth`. */
+            .double-underline.fullwidth {
+                display: block; /* full width of the parent container */
+                width: 100%;
+                text-align: center; /* center the inline text */
+                padding-bottom: 1.15rem; /* more room for the full-width lines */
+            }
+
+            /* When fullwidth the pseudo-elements span the whole width of the element */
+            .double-underline.fullwidth::before,
+            .double-underline.fullwidth::after {
+                left: 0;   /* span from left */
+                right: 0;  /* to right */
+                height: 4px; /* keep thickness consistent; customize as needed */
+                background: currentColor;
+            }
+
+            /* tweak vertical positions when fullwidth (slightly further down than inline) */
+            .double-underline.fullwidth::before { bottom: 8px; }
+            .double-underline.fullwidth::after  { bottom: 2px; }
         </style>
     </head>
 
     <body>
-        <h1 class="double-underline">Michael Gordon Jardine</h1>
+        <h1 class="double-underline fullwidth">Michael Gordon Jardine</h1>
         <h2>Welcome to my personal webpage!</h2>
         <h3>About Me</h3>
         <p>
