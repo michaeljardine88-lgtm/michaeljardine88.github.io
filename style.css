@@ -61,8 +61,8 @@
 
             .photo-container {
                 width: 300px;
-                margin: 20px auto;
-                text-align: center;
+                margin: 0;
+                flex-shrink: 0;
             }
 
             .profile-picture {
@@ -75,4 +75,28 @@
                 object-fit: cover;
                 object-position: center 20%;
                 aspect-ratio: 1 / 1;
+            }
+
+            .split-layout {
+                display: flex;
+                gap: 40px;
+                align-items: center;
+                justify-content: space-between;
+                gap: 40px;
+            }
+
+            .about-text {
+                flex: 1;
+
+            }
+
+            @media (max-width: 768px) {
+                .split-layout {
+                    flex-direction: column-reverse;
+                    text-align: center;
+                }
+
+                .photo-container {
+                    margin: 0 auto 20px auto;
+                }
             }
