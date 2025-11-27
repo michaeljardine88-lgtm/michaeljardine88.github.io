@@ -100,3 +100,50 @@
                     margin: 0 auto 20px auto;
                 }
             }
+
+/* =========================
+   Navigation / Navbar layout
+   Ensure the nav sits below the H1 and the links are centered
+   ========================= */
+.navbar {
+    display: block; /* keep it in normal flow below the heading */
+    width: 100%;
+    margin-top: 0.75rem;
+    text-align: center; /* center contents beneath the H1 */
+    clear: both; /* ensure it is not beside floated elements */
+}
+
+.nav.container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* center logo + link group */
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.nav .logo {
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 420px) {
+    .nav.container { flex-direction: column; gap: 0.5rem; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content:center; }
+}
