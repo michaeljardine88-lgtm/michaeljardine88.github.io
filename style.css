@@ -279,3 +279,27 @@
     /* on small screens center the single card again so content feels balanced */
     .projects-area { justify-content: center; }
 }
+
+/* Completed courses card (green) — visually matches the blue card but with a green gradient
+   placed below the in-progress one. */
+.completed-card {
+    margin-top: 1rem;
+    background: linear-gradient(90deg, #e4fbe7 0%, #8fe7a5 40%, #2fb96a 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 1.15rem;
+    box-shadow: 0 8px 22px rgba(28, 90, 44, 0.18), 0 2px 6px rgba(0,0,0,0.06);
+    max-width: 780px;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.completed-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(28,90,44,0.24); }
+
+.completed-card .course-item {
+    background: rgba(255,255,255,0.06); /* slightly darker backdrop to show contrast */
+}
+
+@media (max-width: 640px) {
+    /* keep the completed card responsive like the other */
+    .completed-card { padding: 0.85rem; margin-top: 0.85rem; }
+}
