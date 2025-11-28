@@ -234,16 +234,20 @@
     max-width: 980px;
     margin: 1.25rem auto 2rem auto;
     padding: 0 1rem; /* horizontal breathing room */
+    display: flex; /* allow left alignment */
+    justify-content: flex-start; /* position cards at left edge of projects-area */
 }
 
 .course-card {
-    background: linear-gradient(180deg, #2b8cff 0%, #1e6efb 100%); /* pleasant blue shade */
+    /* left (lighter) → right (darker) gradient */
+    background: linear-gradient(90deg, #a7d8ff 0%, #52b3ff 40%, #1e6efb 100%);
     color: #ffffff;
     border-radius: 12px;
     padding: 1.25rem;
     box-shadow: 0 8px 22px rgba(23, 58, 133, 0.25), 0 2px 6px rgba(0,0,0,0.08);
     max-width: 780px;
-    margin: 0 auto;
+    /* sit left inside the projects-area container */
+    margin: 0; 
     transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
@@ -272,4 +276,6 @@
 @media (max-width: 640px) {
     .course-card { padding: 1rem; }
     .course-item { font-size: 0.95rem; }
+    /* on small screens center the single card again so content feels balanced */
+    .projects-area { justify-content: center; }
 }
