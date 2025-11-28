@@ -292,8 +292,8 @@
    placed below the in-progress one. */
 .completed-card {
     margin-top: 1rem;
-    /* slightly darker left edge for improved contrast with white text */
-    background: linear-gradient(90deg, #bfeed0 0%, #8fe7a5 40%, #2fb96a 100%);
+    /* darker left edge for improved contrast with white text */
+    background: linear-gradient(90deg, #6fbf7e 0%, #8fe7a5 40%, #2fb96a 100%);
     color: #fff;
     border-radius: 12px;
     padding: 1.15rem;
