@@ -62,7 +62,8 @@
 
             .photo-container {
                 width: 300px;
-                margin: 0;
+                /* add space between the photo and the right edge of the page */
+                margin: 0 2rem 0 0; /* top right bottom left */
                 flex-shrink: 0;
             }
 
