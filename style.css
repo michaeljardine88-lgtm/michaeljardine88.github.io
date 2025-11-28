@@ -195,13 +195,15 @@
         /* subtle near shadow */ 0 6px 12px rgba(0,0,0,0.12),
         /* pronounced offset to simulate depth */ 10px 18px 0 rgba(0,0,0,0.06),
         /* soft outer blur */ 18px 30px 40px rgba(0,0,0,0.18);
-    transform: rotate(-5deg); /* slightly tilt the photo */
+    /* display image straight (no tilt) */
+    transform: none;
     z-index: 40; /* sit above content */
     transition: transform 150ms ease, box-shadow 180ms ease, right 180ms ease;
 }
 
 .studying-picture:hover {
-    transform: rotate(-3deg) translateY(-4px);
+    /* lift the image slightly on hover without rotation */
+    transform: translateY(-4px);
     box-shadow: 0 12px 20px rgba(0,0,0,0.15), 12px 22px 0 rgba(0,0,0,0.08), 24px 40px 50px rgba(0,0,0,0.2);
 }
 
