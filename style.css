@@ -234,8 +234,10 @@
     max-width: 980px;
     margin: 1.25rem auto 2rem auto;
     padding: 0 1rem; /* horizontal breathing room */
-    display: flex; /* allow left alignment */
-    justify-content: flex-start; /* position cards at left edge of projects-area */
+    display: flex; /* layout control for cards */
+    flex-direction: column; /* stack cards vertically */
+    gap: 1rem; /* space between the blue and green cards */
+    align-items: flex-start; /* keep cards left aligned */
 }
 
 .course-card {
