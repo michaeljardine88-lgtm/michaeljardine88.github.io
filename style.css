@@ -43,7 +43,8 @@
                 display: block; /* full width of the parent container */
                 width: 100%;
                 text-align: center; /* center the inline text */
-                padding-bottom: 1.15rem; /* more room for the full-width lines */
+                /* reduce the padding-bottom so the double-underlines sit closer to following content */
+                padding-bottom: 0.6rem;
             }
 
             /* When fullwidth the pseudo-elements span the whole width of the element */
@@ -55,9 +56,9 @@
                 background: #555555;
             }
 
-            /* tweak vertical positions when fullwidth (slightly further down than inline) */
-            .double-underline.fullwidth::before { bottom: 8px; }
-            .double-underline.fullwidth::after  { bottom: 2px; }
+            /* tweak vertical positions when fullwidth — tightened so underlines are closer to the content below */
+                        .double-underline.fullwidth::before { bottom: 6px; }
+                        .double-underline.fullwidth::after  { bottom: 0px; }
 
             .photo-container {
                 width: 300px;
@@ -108,8 +109,8 @@
 .navbar {
     display: block; /* keep it in normal flow below the heading */
     width: 100%;
-    /* slightly larger spacing so the nav sits comfortably below the double underline */
-    margin-top: 1.25rem;
+    /* reduced spacing so navbar sits closer to the underline */
+    margin-top: 0.5rem;
     text-align: center; /* center contents beneath the H1 */
     clear: both; /* ensure it is not beside floated elements */
 }
