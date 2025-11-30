@@ -110,13 +110,13 @@ body {
                         }
 
                         .network-inner {
-                            /* the controlled inner width used by the heading and network
-                               this block sits at the right edge and contains the layout */
-                            width: 88%;
-                            max-width: 1200px;
-                            margin-left: auto; /* anchor toward the right side */
-                            box-sizing: border-box;
-                        }
+                                                             /* the controlled inner width used by the heading and network
+                                                                 center this block so nav above and content below are aligned */
+                                                             width: 88%;
+                                                             max-width: 1200px;
+                                                             margin: 0 auto; /* center horizontally */
+                                                             box-sizing: border-box;
+                                                        }
 
                         .centered-h2 {
                             text-align: center;
@@ -190,6 +190,12 @@ body {
     justify-content: center; /* center logo + link group */
     gap: 1rem;
     padding: 0.5rem 1rem;
+    /* use the same width container used by the network so header/nav alignment
+       matches the content below when resizing */
+    width: 88%;
+    max-width: 1200px;
+    margin: 0 auto; /* center the nav container same as content */
+    box-sizing: border-box;
 }
 
 .nav .logo {
@@ -225,6 +231,8 @@ body {
     .nav.container { flex-direction: row; gap: 0.5rem; }
     .nav-links { justify-content: center; gap: 0.5rem; }
     .nav-links li { margin: 0; }
+    /* keep nav container width aligned with the content block on very small screens */
+    .nav.container { width: 94%; margin: 0 auto; }
 }
 
 /* Hover/active/focus states for nav links */
@@ -404,7 +412,7 @@ body {
 
 .right-row {
     display: flex;
-    justify-content: flex-start; /* left-to-right layout inside network-inner */
+    justify-content: flex-end; /* push content to the right inside network-inner */
     align-items: flex-start;
     gap: 1rem; /* space between photo and network */
     width: 100%;
@@ -494,7 +502,7 @@ body {
     #layers-container { flex-direction: column; gap: 6px; width: 94%; }
     .column { gap: 10px; }
     .network-group { justify-content: center; }
-    .network-inner { width: 94%; margin-left: 0; }
+    .network-inner { width: 94%; margin: 0 auto; }
     .centered-h2 { width: 100%; }
 }
 
