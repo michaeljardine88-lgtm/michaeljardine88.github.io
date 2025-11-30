@@ -57,12 +57,14 @@ function buildNetwork() {
             const nodeEl = document.createElement('div');
             nodeEl.className = 'node';
             nodeEl.setAttribute('data-id', node.id);
+            // give the element a DOM id as well for easier lookup (matches the suggested pattern)
+            nodeEl.id = node.id;
             nodeEl.setAttribute('data-targets', JSON.stringify(node.targets));
             nodeEl.innerText = node.label;
 
-            // Hover: highlight connected lines + nodes
-            nodeEl.addEventListener('mouseenter', () => highlightConnections(node.id));
-            nodeEl.addEventListener('mouseleave', () => clearHighlights());
+            // Hover: highlight the forward-flowing path recursively (phase 2 behaviour)
+            nodeEl.addEventListener('mouseenter', () => highlightPathRecursive(node.id, true));
+            nodeEl.addEventListener('mouseleave', () => highlightPathRecursive(node.id, false));
 
             // Click toggles 'active' state (persistently highlight)
             nodeEl.addEventListener('click', (e) => {
@@ -116,6 +118,8 @@ function drawConnections() {
                 line.setAttribute('y2', trgCy);
                 line.setAttribute('data-source', node.id);
                 line.setAttribute('data-target', targetId);
+                // give the SVG a unique id for quick selection like "sourceId-targetId"
+                line.id = `${node.id}-${targetId}`;
                 line.classList.add('connection');
                 svg.appendChild(line);
             });
@@ -142,6 +146,36 @@ function highlightConnections(nodeId) {
 
     // Also highlight immediate nodes connected to it
     document.querySelectorAll('.node').forEach(n => n.classList.toggle('active-highlight', connected(n, nodeId)));
+}
+
+/**
+ * Recursive highlight used by Phase 2 behavior: when a node is hovered we
+ * light the outgoing lines and nodes forward until the final layer.
+ * This mirrors the example you pasted and makes the forward flow obvious.
+ */
+function highlightPathRecursive(nodeId, isActive) {
+    const node = document.getElementById(nodeId);
+    if (!node) return;
+
+    // toggle the node itself
+    if (isActive) node.classList.add('active');
+    else node.classList.remove('active');
+
+    // parse downstream targets (if any)
+    let targets = [];
+    try { targets = JSON.parse(node.dataset.targets || '[]'); } catch (e) { targets = []; }
+
+    targets.forEach(targetId => {
+        // highlight the connecting line by ID (format: "source-target")
+        const line = document.getElementById(`${nodeId}-${targetId}`);
+        if (line) {
+            if (isActive) line.classList.add('active');
+            else line.classList.remove('active');
+        }
+
+        // recurse into the target node so the whole forward path lights up
+        highlightPathRecursive(targetId, isActive);
+    });
 }
 
 /** Check if nodeElement is connected to nodeId (either as source or target). */
