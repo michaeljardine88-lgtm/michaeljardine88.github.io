@@ -5,7 +5,9 @@ const networkData = [
     {
         id: 'layer-1',
         nodes: [
-            { id: 'skill-py', label: 'Python Coding', targets: ['proc-data', 'proc-algo'] },
+            // Add a connection from Python Coding to Model Training so hovering Python
+            // also highlights and draws a line to the Model Training node.
+            { id: 'skill-py', label: 'Python Coding', targets: ['proc-data', 'proc-algo', 'proc-model'] },
             { id: 'skill-ml', label: 'Machine Learning', targets: ['proc-algo', 'proc-model'] },
             { id: 'skill-strat', label: 'Strategic Planning', targets: ['proc-ws', 'proc-change'] }
         ]
