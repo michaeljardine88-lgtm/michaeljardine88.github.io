@@ -271,23 +271,37 @@ function resizeCanvas() {
 class Star {
     constructor() {
         this.reset();
-        this.y = Math.random() * height;
     }
 
     reset() {
+        // position stars randomly across the whole canvas so they don't "fall"
         this.x = Math.random() * width;
-        this.y = -10;
-        this.z = Math.random() *2 + 0.5;
-        this.alpha = Math.random() * 0.5 + 0.1;
-        this.speed = Math.random() * 0.5 + 0.2;
+        this.y = Math.random() * height;
+
+        // base size and alpha — used as centers for twinkling oscillations
+        this.baseZ = Math.random() * 1.8 + 0.5; // radius
+        this.z = this.baseZ;
+        this.baseAlpha = Math.random() * 0.6 + 0.2; // 0.2 - 0.8
+        this.alpha = this.baseAlpha;
+
+        // twinkle controls (different speed/phase per star)
+        this.twinkleSpeed = Math.random() * 0.9 + 0.3; // cycles / second-ish
+        this.twinklePhase = Math.random() * Math.PI * 2;
+        this.twinkleAmp = Math.random() * 0.6 + 0.15; // how strong the twinkle is
     }
 
     update() {
-        this.y += this.speed;
+        // twinkle: oscillate alpha and size based on time (no vertical movement)
+        const t = performance.now() * 0.001; // seconds
+        const omega = this.twinkleSpeed * 2 * Math.PI; // convert cycles/sec to rad/sec
+        const sine = Math.sin(omega * t + this.twinklePhase);
 
-        if (this.y > height) {
-            this.reset();
-        }
+        // alpha oscillates around baseAlpha
+        this.alpha = this.baseAlpha + sine * this.twinkleAmp;
+        this.alpha = Math.max(0, Math.min(1, this.alpha));
+
+        // radius slightly pulsates for extra depth
+        this.z = this.baseZ + sine * (this.baseZ * 0.35);
     }
 
     draw() {
