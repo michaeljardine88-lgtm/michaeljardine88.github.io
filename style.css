@@ -384,13 +384,20 @@ body {
     pointer-events: none; /* let clicks pass to nodes */
 }
 
+/* Make the layout for the layers explicit and scoped so the network's
+   nodes and columns are styled predictably even if other CSS is present. */
 #layers-container {
     display: flex;
     justify-content: space-between;
     width: 88%; /* width of the neural net content */
     max-width: 1200px;
     z-index: 1; /* nodes sit on top of lines */
+    box-sizing: border-box; /* make sizing predictable */
 }
+
+/* Prefer more specific selectors so these rules take effect even if there
+   are other, more general styles elsewhere in the stylesheet. */
+#layers-container .column { flex: 1; min-width: 120px; }
 
 .column {
     display: flex;
@@ -398,9 +405,13 @@ body {
     justify-content: center;
     gap: 28px; /* vertical spacing between nodes */
     align-items: center;
+    box-sizing: border-box;
 }
 
 .node {
+    display: inline-flex; /* render like a box and allow centering */
+    align-items: center;
+    justify-content: center;
     background: rgba(16, 28, 54, 0.9);
     border: 2px solid var(--accent);
     padding: 12px 20px;
@@ -411,6 +422,7 @@ body {
     box-shadow: 0 0 10px rgba(79,172,254,0.14);
     min-width: 140px;
     color: var(--text);
+    word-break: break-word; /* keep long labels from breaking layout */
 }
 
 .node.active {
