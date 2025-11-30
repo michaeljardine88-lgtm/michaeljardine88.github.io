@@ -6,6 +6,7 @@
     --center-highlight: rgba(255,255,255,0.035); /* subtle center glow */
     --text: #ffffff;              /* primary text on dark bg */
     --muted: rgba(255,255,255,0.78); /* lighter gray for accents */
+    --accent: #4facfe; /* accent used by neural network lines/nodes */
 }
 
 /* Apply the background and default text color site-wide */
@@ -354,4 +355,100 @@ body {
 @media (max-width: 640px) {
     /* keep the completed card responsive like the other */
     .completed-card { padding: 0.85rem; margin-top: 0.85rem; }
+}
+
+/* =========================
+   Neural-network widget styles
+   These styles handle the layout and appearance of the network visualization
+   (nodes + SVG lines). The colors use the site's variables so they match
+   the dark theme.
+   ========================= */
+
+#network-container {
+    position: relative;
+    width: 100%;
+    height: 420px; /* desktop default — will shrink on small screens */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.25rem 0;
+}
+
+#connections-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* sits behind the nodes */
+    pointer-events: none; /* let clicks pass to nodes */
+}
+
+#layers-container {
+    display: flex;
+    justify-content: space-between;
+    width: 88%; /* width of the neural net content */
+    max-width: 1200px;
+    z-index: 1; /* nodes sit on top of lines */
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px; /* vertical spacing between nodes */
+    align-items: center;
+}
+
+.node {
+    background: rgba(16, 28, 54, 0.9);
+    border: 2px solid var(--accent);
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(79,172,254,0.14);
+    min-width: 140px;
+    color: var(--text);
+}
+
+.node.active {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 0 20px var(--accent);
+    transform: scale(1.06);
+}
+
+/* default SVG line style */
+#connections-layer line {
+    stroke: var(--accent);
+    stroke-width: 1;
+    opacity: 0.18; /* dim by default */
+    transition: opacity 160ms ease, stroke-width 160ms ease;
+}
+
+#connections-layer line.active {
+    opacity: 1; /* bright when active */
+    stroke-width: 2.2;
+}
+
+@media (max-width: 860px) {
+    #network-container { height: 520px; }
+    .column { gap: 18px; }
+    .node { min-width: 120px; padding: 10px 14px; }
+    #layers-container { width: 92%; }
+}
+
+@media (max-width: 520px) {
+    /* stack columns on small screens */
+    #network-container { height: auto; padding: 1rem 0; }
+    #layers-container { flex-direction: column; gap: 6px; width: 94%; }
+    .column { gap: 10px; }
+}
+
+/* Slight highlight used for hover preview (not persistent) */
+.node.active-highlight {
+    box-shadow: 0 0 22px rgba(79,172,254,0.28);
+    transform: scale(1.03);
 }
