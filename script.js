@@ -259,6 +259,14 @@ const ctx = canvas.getContext('2d');
 let stars = [];
 let width, height;
 
+// star color palette (RGB values) — use the provided metallic tones
+const STAR_PALETTE = [
+    { r: 255, g: 150, b: 160 }, // Metallic Red / Rose Gold
+    { r: 170, g: 220, b: 255 }, // Metallic Blue / Ice Steel
+    { r: 255, g: 240, b: 150 }, // Metallic Yellow / Champagne
+    { r: 150, g: 255, b: 200 }  // Metallic Green / Mint Alloy
+];
+
 // 1. Setup the Canvas Size
 function resizeCanvas() {
     width = window.innerWidth;
@@ -284,6 +292,13 @@ class Star {
         this.baseAlpha = Math.random() * 0.6 + 0.2; // 0.2 - 0.8
         this.alpha = this.baseAlpha;
 
+        // per-star color chosen from the metallic palette
+        const col = STAR_PALETTE[Math.floor(Math.random() * STAR_PALETTE.length)];
+        // store as template-ready values to avoid doing this every frame
+        this.colorR = col.r;
+        this.colorG = col.g;
+        this.colorB = col.b;
+
         // twinkle controls (different speed/phase per star)
         this.twinkleSpeed = Math.random() * 0.9 + 0.3; // cycles / second-ish
         this.twinklePhase = Math.random() * Math.PI * 2;
@@ -307,7 +322,8 @@ class Star {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.z, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+        // use the per-star RGB values and current alpha so stars flicker in color
+        ctx.fillStyle = `rgba(${this.colorR}, ${this.colorG}, ${this.colorB}, ${this.alpha})`;
         ctx.fill();
     }
 }
