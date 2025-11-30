@@ -252,3 +252,76 @@ if (document.readyState === 'loading') {
 } else {
     buildNetwork();
 }
+
+// Build starfield galaxy animation in background
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+let width, height;
+
+// 1. Setup the Canvas Size
+function resizeCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    createStars();
+}
+// 2. The Star Class (the blueprint)
+class Star {
+    constructor() {
+        this.reset();
+        this.y = Math.randon() * height;
+    }
+
+    reset() {
+        this.x = Math.random() * width;
+        this.y = -10;
+        this.z = Math.random() *2 + 0.5;
+        this.alpha = Math.random() * 0.5 + 0.1;
+        this.speed = Math.random() * 0.5 + 0.2;
+    }
+
+    update() {
+        this.y += this.speed;
+
+        if (this.y > height) {
+            this.reset();
+        }
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.z, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+        ctx.fill();
+    }
+}
+
+// 3. Create the fleet of stars
+
+function createStars() {
+    stars = [];
+    const starCount = 200;
+
+    for (let i = 0; i < starCount; i++) {
+        stars.push(new Star());
+    }
+}
+
+// 4. Animate Stars
+
+function animateStars() {
+    ctx.clearRect(0, 0, width, height);
+
+    stars.forEach(star => {
+        star.update();
+        star.draw();
+    });
+    requestAnimationFrame(animateStars);
+}
+
+// Initialize
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+animateStars();
