@@ -115,6 +115,7 @@ body {
                                                              width: 88%;
                                                              max-width: 1200px;
                                                              margin: 0 auto; /* center horizontally */
+                                                             position: relative; /* stacking context for the star-band */
                                                              box-sizing: border-box;
                                                         }
 
@@ -515,11 +516,20 @@ body {
 /* Star band placed beneath the network: a narrow horizontal canvas block that
    matches the .network-inner width so stars don't cover the whole page. */
 .star-band {
+    position: absolute; /* place directly beneath the inner content */
+    left: 0;
+    top: 100%;
     width: 100%;
     height: 160px; /* tweakable band height */
-    margin-top: 0.6rem;
     overflow: hidden;
+    z-index: 0; /* sit behind network content */
+}
+
+/* make sure the right-row content sits above the star band */
+.right-row > .photo-container,
+.right-row > #network-container {
     position: relative;
+    z-index: 1;
 }
 
 #starfield {
