@@ -60,6 +60,12 @@
                         .double-underline.fullwidth::before { bottom: 6px; }
                         .double-underline.fullwidth::after  { bottom: 0px; }
 
+                        /* Center the main H2 on the index page */
+                        .centered-h2 {
+                            text-align: center;
+                            margin: 0.75rem 0; /* small vertical spacing around the heading */
+                        }
+
             .photo-container {
                 width: 300px;
                 /* add space between the photo and the right edge of the page */
