@@ -199,8 +199,6 @@ body {
 /* Hover/active/focus states for nav links */
 .nav-links a:hover,
 .nav-links a:focus {
-.nav-links a:hover,
-.nav-links a:focus {
     /* lighter, subtle highlight for dark background */
     background-color: rgba(255,255,255,0.06);
     color: inherit; /* remain readable as white */
@@ -208,13 +206,11 @@ body {
 }
 
 .nav-links a:active {
-.nav-links a:active {
     background-color: rgba(255,255,255,0.08);
     transform: translateY(0);
 }
 
 /* Accessible keyboard focus indicator */
-.nav-links a:focus-visible {
 .nav-links a:focus-visible {
     /* accessible keyboard focus indicator but tuned for dark background */
     outline: 2px dashed rgba(255,255,255,0.9);
@@ -402,8 +398,7 @@ body {
 .column {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 28px; /* vertical spacing between nodes */
+    justify-content: space-around;
     align-items: center;
     box-sizing: border-box;
 }
