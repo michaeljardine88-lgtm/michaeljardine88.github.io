@@ -100,9 +100,24 @@ body {
                         .double-underline.fullwidth::after  { bottom: 0px; }
 
                         /* Center the main H2 on the index page */
+                        .network-group {
+                            /* group the heading and right-row so the heading can be centered over
+                               the network content (which is right-aligned in the page) */
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-end; /* keep the group aligned to the right of the page */
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+
                         .centered-h2 {
                             text-align: center;
-                            margin: 0.5rem 0 0.3rem 0; /* tighter spacing above/below the heading */
+                            /* make the heading have same width as the network's layers container
+                               so it centers over the nodes: width matches the internal network layout */
+                            width: 88%;
+                            max-width: 1200px;
+                            margin: 0.5rem 0 0.3rem 0; /* tightening vertical spacing */
+                            box-sizing: border-box;
                         }
 
             .photo-container {
@@ -471,6 +486,8 @@ body {
     #network-container { height: auto; padding: 1rem 0; }
     #layers-container { flex-direction: column; gap: 6px; width: 94%; }
     .column { gap: 10px; }
+    .network-group { align-items: center; }
+    .centered-h2 { width: 94%; }
 }
 
 /* Slight highlight used for hover preview (not persistent) */
