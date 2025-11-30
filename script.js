@@ -269,10 +269,27 @@ const STAR_PALETTE = [
 
 // 1. Setup the Canvas Size
 function resizeCanvas() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    // If a star-band exists, size the canvas to that band so stars only occupy
+    // the narrow region under the network. Otherwise fallback to a smaller
+    // fixed-height band.
+    const band = document.querySelector('.star-band');
+    if (band) {
+        const rect = band.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+    } else {
+        width = window.innerWidth;
+        height = Math.min(window.innerHeight, 180);
+    }
+
+    // support HiDPI screens — set canvas backing store and scale drawing
+    const dpr = window.devicePixelRatio || 1;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    canvas.width = Math.max(1, Math.floor(width * dpr));
+    canvas.height = Math.max(1, Math.floor(height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
     createStars();
 }
 // 2. The Star Class (the blueprint)
@@ -332,7 +349,10 @@ class Star {
 
 function createStars() {
     stars = [];
-    const starCount = 200;
+    // choose density dynamically based on band area
+    const area = Math.max(1, width * height);
+    // one star per ~5000px² is a reasonable starting density
+    const starCount = Math.min(400, Math.max(20, Math.round(area / 5000)));
 
     for (let i = 0; i < starCount; i++) {
         stars.push(new Star());

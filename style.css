@@ -511,3 +511,20 @@ body {
     box-shadow: 0 0 22px rgba(79,172,254,0.28);
     transform: scale(1.03);
 }
+
+/* Star band placed beneath the network: a narrow horizontal canvas block that
+   matches the .network-inner width so stars don't cover the whole page. */
+.star-band {
+    width: 100%;
+    height: 160px; /* tweakable band height */
+    margin-top: 0.6rem;
+    overflow: hidden;
+    position: relative;
+}
+
+#starfield {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* don't capture clicks */
+}
