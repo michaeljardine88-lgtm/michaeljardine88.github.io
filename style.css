@@ -101,29 +101,36 @@ body {
 
                         /* Center the main H2 on the index page */
                         .network-group {
-                            /* group the heading and right-row so the heading can be centered over
-                               the network content (which is right-aligned in the page) */
+                            /* group the heading and right-row — keep it full width but
+                               anchor an inner block to the right for consistent layout */
                             display: flex;
-                            flex-direction: column;
-                            align-items: flex-end; /* keep the group aligned to the right of the page */
+                            justify-content: flex-end; /* anchor the inner block to the right */
                             width: 100%;
+                            box-sizing: border-box;
+                        }
+
+                        .network-inner {
+                            /* the controlled inner width used by the heading and network
+                               this block sits at the right edge and contains the layout */
+                            width: 88%;
+                            max-width: 1200px;
+                            margin-left: auto; /* anchor toward the right side */
                             box-sizing: border-box;
                         }
 
                         .centered-h2 {
                             text-align: center;
-                            /* make the heading have same width as the network's layers container
-                               so it centers over the nodes: width matches the internal network layout */
-                            width: 88%;
-                            max-width: 1200px;
+                            /* fill the inner width so heading centers above the network */
+                            width: 100%;
                             margin: 0.5rem 0 0.3rem 0; /* tightening vertical spacing */
                             box-sizing: border-box;
                         }
 
             .photo-container {
                 width: 300px;
-                /* add a left margin so the photo is inset from the left side of the page */
-                margin: 0 0 0 2rem; /* top right bottom left */
+                /* when placed directly to the left of the network, keep a small
+                   right margin so the picture doesn't butt against the nodes */
+                margin: 0 1rem 0 0; /* top right bottom left */
                 flex-shrink: 0;
             }
 
@@ -397,7 +404,7 @@ body {
 
 .right-row {
     display: flex;
-    justify-content: flex-end; /* push the row contents to the right side */
+    justify-content: flex-start; /* left-to-right layout inside network-inner */
     align-items: flex-start;
     gap: 1rem; /* space between photo and network */
     width: 100%;
@@ -419,7 +426,7 @@ body {
 #layers-container {
     display: flex;
     justify-content: space-between;
-    width: 88%; /* width of the neural net content */
+    width: 100%; /* fill the .network-inner width */
     max-width: 1200px;
     z-index: 1; /* nodes sit on top of lines */
     box-sizing: border-box; /* make sizing predictable */
@@ -486,8 +493,9 @@ body {
     #network-container { height: auto; padding: 1rem 0; }
     #layers-container { flex-direction: column; gap: 6px; width: 94%; }
     .column { gap: 10px; }
-    .network-group { align-items: center; }
-    .centered-h2 { width: 94%; }
+    .network-group { justify-content: center; }
+    .network-inner { width: 94%; margin-left: 0; }
+    .centered-h2 { width: 100%; }
 }
 
 /* Slight highlight used for hover preview (not persistent) */
