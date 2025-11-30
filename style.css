@@ -1,3 +1,28 @@
+/* Site color variables and background (dark theme)
+   We'll use :root variables so it's easy to adjust later. The design adds a
+   deep navy base plus a very subtle radial highlight in the center. */
+:root {
+    --bg: #050A18;                /* deep navy background */
+    --center-highlight: rgba(255,255,255,0.035); /* subtle center glow */
+    --text: #ffffff;              /* primary text on dark bg */
+    --muted: rgba(255,255,255,0.78); /* lighter gray for accents */
+}
+
+/* Apply the background and default text color site-wide */
+html, body { height: 100%; }
+body {
+    background-color: var(--bg);
+    /* slight centered radial highlight + soft blending for depth */
+    background-image:
+        radial-gradient(circle at center, var(--center-highlight) 0%, rgba(255,255,255,0.00) 30%),
+        radial-gradient(circle at center, rgba(8,14,36,0.15) 0%, rgba(5,10,24,0.4) 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text);
+}
+
+/* End site color variables/background */
+
 /* Option 1 — native CSS (modern browsers): double underline
                  - text-decoration-style: double
                  - configurable thickness and offset
@@ -7,7 +32,7 @@
                 text-decoration-line: underline;
                 text-decoration-style: double;
                 text-decoration-thickness: 1px;
-                text-decoration-color: #555555;
+                    text-decoration-color: var(--muted);
                 text-underline-offset: 6px; /* space between text and underline */
             }
 
@@ -31,6 +56,7 @@
                 right: 0;
                 height: 1px; /* line thickness */
                 background: #555555; /* same color as text */
+                    background: var(--muted); /* same color as text */
             }
 
             /* first line sits a little under the text, second line sits further down */
@@ -54,6 +80,9 @@
                 right: 0;  /* to right */
                 height: 1px; /* keep thickness consistent; customize as needed */
                 background: #555555;
+                    background: var(--muted);
+                    background: var(--muted);
+                    background: var(--muted);
             }
 
             /* tweak vertical positions when fullwidth — tightened so underlines are closer to the content below */
@@ -79,6 +108,7 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 display:block;
                 border: 4px solid #555555;
+                    border: 4px solid var(--muted);
                 object-fit: cover;
                 object-position: center 20%;
                 aspect-ratio: 1 / 1;
@@ -168,19 +198,25 @@
 /* Hover/active/focus states for nav links */
 .nav-links a:hover,
 .nav-links a:focus {
-    background-color: rgba(85,85,85,0.08); /* subtle highlight */
-    color: #222; /* ensure readable on hover */
+.nav-links a:hover,
+.nav-links a:focus {
+    /* lighter, subtle highlight for dark background */
+    background-color: rgba(255,255,255,0.06);
+    color: inherit; /* remain readable as white */
     transform: translateY(-2px); /* slight lift for feel */
 }
 
 .nav-links a:active {
-    background-color: rgba(85,85,85,0.12);
+.nav-links a:active {
+    background-color: rgba(255,255,255,0.08);
     transform: translateY(0);
 }
 
 /* Accessible keyboard focus indicator */
 .nav-links a:focus-visible {
-    outline: 2px dashed rgba(85,85,85,0.9);
+.nav-links a:focus-visible {
+    /* accessible keyboard focus indicator but tuned for dark background */
+    outline: 2px dashed rgba(255,255,255,0.9);
     outline-offset: 3px;
 }
 
