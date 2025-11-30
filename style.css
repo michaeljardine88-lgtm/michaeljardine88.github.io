@@ -93,13 +93,12 @@ body {
                         /* Center the main H2 on the index page */
                         .centered-h2 {
                             text-align: center;
-                            margin: 0.75rem 0; /* small vertical spacing around the heading */
+                            margin: 0.5rem 0 0.3rem 0; /* tighter spacing above/below the heading */
                         }
 
             .photo-container {
                 width: 300px;
-                /* add space between the photo and the right edge of the page */
-                margin: 0 2rem 0 0; /* top right bottom left */
+                margin: 0; /* reset when used in the right-row layout */
                 flex-shrink: 0;
             }
 
@@ -360,6 +359,7 @@ body {
    the dark theme.
    ========================= */
 
+/* Right-side row (photo + network) — aligns both items to the right under the nav */
 #network-container {
     position: relative;
     width: 100%;
@@ -367,7 +367,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1.25rem 0;
+    margin: 0.25rem 0 1rem 0; /* reduce top spacing so it sits closer to the h2 */
+}
+
+.right-row {
+    display: flex;
+    justify-content: flex-end; /* push the row contents to the right side */
+    align-items: flex-start;
+    gap: 1rem; /* space between photo and network */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #connections-layer {
