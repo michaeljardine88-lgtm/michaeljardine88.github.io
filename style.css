@@ -107,7 +107,8 @@ body {
 
             .photo-container {
                 width: 300px;
-                margin: 0; /* reset when used in the right-row layout */
+                /* add a left margin so the photo is inset from the left side of the page */
+                margin: 0 0 0 2rem; /* top right bottom left */
                 flex-shrink: 0;
             }
 
