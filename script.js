@@ -271,7 +271,7 @@ function resizeCanvas() {
 class Star {
     constructor() {
         this.reset();
-        this.y = Math.randon() * height;
+        this.y = Math.random() * height;
     }
 
     reset() {
