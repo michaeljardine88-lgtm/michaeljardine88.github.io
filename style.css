@@ -1,542 +1,339 @@
-/* Site color variables and background (dark theme)
-   We'll use :root variables so it's easy to adjust later. The design adds a
-   deep navy base plus a very subtle radial highlight in the center. */
+/* ==========================================================================
+   1. DESIGN SYSTEM & VARIABLES
+   ========================================================================== */
 :root {
-    --bg: #050A18;                /* deep navy background */
-    --center-highlight: rgba(255,255,255,0.035); /* subtle center glow */
-    --text: #ffffff;              /* primary text on dark bg */
-    --muted: rgba(255,255,255,0.78); /* lighter gray for accents */
-    --accent: #4facfe; /* accent used by neural network lines/nodes */
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #38bdf8;
+  --border: #334155;
+  --max-width: 1000px;
 }
 
-/* Apply the background and default text color site-wide */
-html, body { height: 100%; }
+/* ==========================================================================
+   2. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    background-color: var(--bg);
-    /* slight centered radial highlight + soft blending for depth */
-    background-image:
-        radial-gradient(circle at center, var(--center-highlight) 0%, rgba(255,255,255,0.00) 30%),
-        radial-gradient(circle at center, rgba(8,14,36,0.15) 0%, rgba(5,10,24,0.4) 60%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
 }
 
-#starfield {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0; /* behind all content */
-    pointer-events: none;
-}
-/* End site color variables/background */
-
-/* Option 1 — native CSS (modern browsers): double underline
-                 - text-decoration-style: double
-                 - configurable thickness and offset
-            */
-            h1.native-double {
-                font-size: 2.25rem;
-                text-decoration-line: underline;
-                text-decoration-style: double;
-                text-decoration-thickness: 1px;
-                    text-decoration-color: var(--muted);
-                text-underline-offset: 6px; /* space between text and underline */
-            }
-
-            /* Option 2 — pseudo-element fallback (works in older browsers and gives full control)
-                 Use the .double-underline class if you need consistent, configurable double lines.
-            */
-            /* Default: shrink to text width (keeps lines under just the text). Add the
-                 `.fullwidth` modifier to make the double underline stretch across the
-                 full width of the container while keeping the text centered. */
-            .double-underline {
-                display: inline-block; /* shrink to text width */
-                position: relative;
-                padding-bottom: 0.35rem; /* make room for the lines */
-            }
-
-            .double-underline::before,
-            .double-underline::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                right: 0;
-                height: 1px; /* line thickness */
-                background: #555555; /* same color as text */
-                    background: var(--muted); /* same color as text */
-            }
-
-            /* first line sits a little under the text, second line sits further down */
-            .double-underline::before { bottom: -8px; }
-            .double-underline::after  { bottom: -14px; }
-
-            /* Full-width modifier — stretches lines across the container while keeping
-                 the heading text centered. Use the class: `double-underline fullwidth`. */
-            .double-underline.fullwidth {
-                display: block; /* full width of the parent container */
-                width: 100%;
-                text-align: center; /* center the inline text */
-                /* reduce the padding-bottom so the double-underlines sit closer to following content */
-                padding-bottom: 0.6rem;
-            }
-
-            /* When fullwidth the pseudo-elements span the whole width of the element */
-            .double-underline.fullwidth::before,
-            .double-underline.fullwidth::after {
-                left: 0;   /* span from left */
-                right: 0;  /* to right */
-                height: 1px; /* keep thickness consistent; customize as needed */
-                background: #555555;
-                    background: var(--muted);
-                    background: var(--muted);
-                    background: var(--muted);
-            }
-
-            /* tweak vertical positions when fullwidth — tightened so underlines are closer to the content below */
-                        .double-underline.fullwidth::before { bottom: 6px; }
-                        .double-underline.fullwidth::after  { bottom: 0px; }
-
-                        /* Center the main H2 on the index page */
-                        .network-group {
-                            /* group the heading and right-row — keep it full width but
-                               anchor an inner block to the right for consistent layout */
-                            display: flex;
-                            justify-content: flex-end; /* anchor the inner block to the right */
-                            width: 100%;
-                            box-sizing: border-box;
-                        }
-
-                        .network-inner {
-                                                             /* the controlled inner width used by the heading and network
-                                                                 center this block so nav above and content below are aligned */
-                                                             width: 88%;
-                                                             max-width: 1200px;
-                                                             margin: 0 auto; /* center horizontally */
-                                                             position: relative; /* stacking context for the star-band */
-                                                             box-sizing: border-box;
-                                                        }
-
-                        .centered-h2 {
-                            text-align: center;
-                            /* fill the inner width so heading centers above the network */
-                            width: 100%;
-                            margin: 0.5rem 0 0.3rem 0; /* tightening vertical spacing */
-                            box-sizing: border-box;
-                        }
-
-            .photo-container {
-                width: 300px;
-                /* when placed directly to the left of the network, keep a small
-                   right margin so the picture doesn't butt against the nodes */
-                margin: 0 1rem 0 0; /* top right bottom left */
-                flex-shrink: 0;
-            }
-
-            .profile-picture {
-                width: 100%;
-                border-radius: 50%;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                display:block;
-                opacity: 0.94;
-                border: 4px solid #555555;
-                    border: 4px solid var(--muted);
-                object-fit: cover;
-                object-position: center 20%;
-                aspect-ratio: 1 / 1;
-            }
-
-            .split-layout {
-                display: flex;
-                gap: 40px;
-                align-items: flex-start;
-                justify-content: space-between;
-                gap: 40px;
-            }
-
-            .about-me-text{
-                margin-top: 30px;
-                margin-bottom: 10px;
-
-            }
-
-            @media (max-width: 768px) {
-                .split-layout {
-                    flex-direction: column-reverse;
-                    text-align: center;
-                }
-
-                .photo-container {
-                    margin: 0 auto 20px auto;
-                }
-            }
-
-/* =========================
-   Navigation / Navbar layout
-   Ensure the nav sits below the H1 and the links are centered
-   ========================= */
-.navbar {
-    display: block; /* keep it in normal flow below the heading */
-    width: 100%;
-    /* reduced spacing so navbar sits closer to the underline */
-    margin-top: 0.5rem;
-    text-align: center; /* center contents beneath the H1 */
-    clear: both; /* ensure it is not beside floated elements */
+/* The Container keeps your content centered with clean margins */
+.container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.nav.container {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* center logo + link group */
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    /* use the same width container used by the network so header/nav alignment
-       matches the content below when resizing */
-    width: 88%;
-    max-width: 1200px;
-    margin: 0 auto; /* center the nav container same as content */
-    box-sizing: border-box;
+/* ==========================================================================
+   3. NAVIGATION BAR
+   ========================================================================== */
+nav.navbar {
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.nav .logo {
-    display: inline-block;
-    font-weight: 700;
-    text-decoration: none;
-    color: inherit;
+/* Center the container and its contents */
+nav .nav-container,
+nav .nav.container {
+  display: flex;
+  justify-content: center; /* Horizontally centers the link group */
+  align-items: center;
+  height: 64px;
+  margin: 0 auto;
 }
 
+/* The list of links */
 .nav-links {
-    list-style: none; /* remove bullets */
-    margin: 0;
-    padding: 0;
-    display: inline-flex; /* keep links side-by-side */
-    gap: 1rem;
-    align-items: center;
-    justify-content: center; /* center items inside the list */
-    flex-wrap: wrap; /* allow wrapping only if absolutely necessary on very narrow screens */
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;               /* Clean, balanced spacing between links */
+  padding: 0;
+  margin: 0;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: inherit;
-    /* make the hit area more comfortable and visually balanced */
-    padding: 0.45rem 0.75rem;
-    border-radius: 6px;
-    transition: background-color 160ms ease, color 160ms ease, transform 80ms ease;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
-@media (max-width: 420px) {
-    /* keep the nav links horizontal but allow wrapping into multiple small rows if needed
-       so the links remain side-by-side rather than stacked vertically as a single column */
-    .nav.container { flex-direction: row; gap: 0.5rem; }
-    .nav-links { justify-content: center; gap: 0.5rem; }
-    .nav-links li { margin: 0; }
-    /* keep nav container width aligned with the content block on very small screens */
-    .nav.container { width: 94%; margin: 0 auto; }
+.nav-links a:hover {
+  color: var(--accent);
 }
 
-/* Hover/active/focus states for nav links */
-.nav-links a:hover,
-.nav-links a:focus {
-    /* lighter, subtle highlight for dark background */
-    background-color: rgba(255,255,255,0.06);
-    color: inherit; /* remain readable as white */
-    transform: translateY(-2px); /* slight lift for feel */
+/* ==========================================================================
+   4. CONTENT SECTIONS & HERO
+   ========================================================================== */
+section {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.nav-links a:active {
-    background-color: rgba(255,255,255,0.08);
-    transform: translateY(0);
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
 }
 
-/* Accessible keyboard focus indicator */
-.nav-links a:focus-visible {
-    /* accessible keyboard focus indicator but tuned for dark background */
-    outline: 2px dashed rgba(255,255,255,0.9);
-    outline-offset: 3px;
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 600px;
 }
 
-/* Current Projects — studying-picture
-   Position the image near the top-right of the viewport with a layered
-   3D-like shadow and a small tilt for depth. On small screens it becomes
-   non-fixed and stacks with the page content to avoid overlap. */
-.studying-picture {
-    position: fixed; /* pin near the viewport top-right */
-    top: 1.25rem;
-    right: 1.25rem;
-    width: clamp(120px, 18vw, 300px);
-    max-width: 320px;
-    height: auto;
-    border-radius: 10px;
-    background: white; /* gives a crisp edge so shadow reads clearly */
-    box-shadow:
-        /* subtle near shadow */ 0 6px 12px rgba(0,0,0,0.12),
-        /* pronounced offset to simulate depth */ 10px 18px 0 rgba(0,0,0,0.06),
-        /* soft outer blur */ 18px 30px 40px rgba(0,0,0,0.18);
-    /* display image straight (no tilt) */
-    transform: none;
-    z-index: 40; /* sit above content */
-    transition: transform 150ms ease, box-shadow 180ms ease, right 180ms ease;
+/* ==========================================================================
+   5. PROJECT CARDS (CSS Grid)
+   ========================================================================== */
+.grid {
+  display: grid;
+  /* Automatically wraps cards to the next row if screen is narrow */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-.studying-picture:hover {
-    /* lift the image slightly on hover without rotation */
-    transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(0,0,0,0.15), 12px 22px 0 rgba(0,0,0,0.08), 24px 40px 50px rgba(0,0,0,0.2);
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-@media (max-width: 900px) {
-    /* Reposition so it doesn't overlap the nav/header on medium screens */
-    .studying-picture { right: 0.9rem; top: 1rem; width: clamp(100px, 22vw, 240px); }
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
 }
 
-@media (max-width: 600px) {
-    /* On small screens, let the image flow with the page and center it */
-    .studying-picture {
-        position: static;
-        display: block;
-        margin: 1rem auto 0 auto;
-        transform: none;
-        box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-        width: 80%;
-        z-index: auto;
-    }
+.card h3 {
+  margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
-/* =========================
-   Projects — Coursera Courses card
-   A single blue card used to list courses the user is currently working on.
-   ========================= */
-.projects-area {
-    width: 100%;
-    /* allow the projects container to grow slightly wider so cards can be longer */
-    max-width: 1200px;
-    /* place the container flush toward the left — 1rem from the viewport edge —
-       and keep the right side flexible */
-    margin: 1.25rem auto 2rem 1rem; /* top right bottom left */
-    padding: 0 1rem 0 0.5rem; /* slightly less left padding so card sits closer to the edge */
-    display: flex; /* layout control for cards */
-    flex-direction: column; /* stack cards vertically */
-    gap: 1rem; /* space between the blue and green cards */
-    align-items: flex-start; /* keep cards left aligned */
+.card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
 }
 
-.course-card {
-    /* left (lighter) → right (darker) gradient */
-    /* slightly darker left edge so white text is easier to read */
-    background: linear-gradient(90deg, #6faef6 0%, #52b3ff 40%, #1e6efb 100%);
-    color: #ffffff;
-    border-radius: 12px;
-    padding: 1.25rem;
-    box-shadow: 0 8px 22px rgba(23, 58, 133, 0.25), 0 2px 6px rgba(0,0,0,0.08);
-    /* make the card longer on wider screens while keeping a sensible minimum */
-    width: clamp(780px, 86vw, 1100px);
-    max-width: 1100px;
-    /* sit left inside the projects-area container */
-    margin: 0; 
-    transition: transform 160ms ease, box-shadow 160ms ease;
+/* Category pills/tags */
+.tag {
+  display: inline-block;
+  background-color: rgba(56, 189, 248, 0.1);
+  color: var(--accent);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
-.course-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(23,58,133,0.28); }
-
-.course-card-header h2 {
-    margin: 0 0 0.25rem 0;
-    font-size: 1.25rem;
-}
-.course-card-sub {
-    margin: 0 0 0.75rem 0;
-    opacity: 0.95;
-    font-size: 0.95rem;
-}
-
-.course-card-body { padding-top: 0.25rem; }
-.course-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem }
-.course-item {
-    background: rgba(255,255,255,0.08);
-    padding: 0.5rem 0.75rem;
-    border-radius: 8px;
-    color: #fff;
-    font-weight: 500;
+/* ==========================================================================
+   6. BUTTONS & FOOTER
+   ========================================================================== */
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-@media (max-width: 640px) {
-    .course-card { padding: 1rem; }
-    .course-item { font-size: 0.95rem; }
-    /* on small screens center the single card again so content feels balanced */
-    .projects-area { justify-content: center; }
+.btn:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
 }
 
-/* Completed courses card (green) — visually matches the blue card but with a green gradient
-   placed below the in-progress one. */
-.completed-card {
-    margin-top: 1rem;
-    /* darker left edge for improved contrast with white text */
-    background: linear-gradient(90deg, #6fbf7e 0%, #8fe7a5 40%, #2fb96a 100%);
-    color: #fff;
-    border-radius: 12px;
-    padding: 1.15rem;
-    box-shadow: 0 8px 22px rgba(28, 90, 44, 0.18), 0 2px 6px rgba(0,0,0,0.06);
-    width: clamp(780px, 86vw, 1100px);
-    max-width: 1100px;
-    transition: transform 160ms ease, box-shadow 160ms ease;
+footer {
+  padding: 2.5rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+/* ==========================================================================
+   7. HEADER & NETWORK LAYOUT
+   ========================================================================== */
+
+/* Main wrapper for the headline + interactive/photo section */
+.network-group {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-.completed-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(28,90,44,0.24); }
-
-.completed-card .course-item {
-    background: rgba(255,255,255,0.06); /* slightly darker backdrop to show contrast */
+.network-inner h2.centered-h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 2.5rem;
 }
 
-@media (max-width: 640px) {
-    /* keep the completed card responsive like the other */
-    .completed-card { padding: 0.85rem; margin-top: 0.85rem; }
-}
-
-/* =========================
-   Neural-network widget styles
-   These styles handle the layout and appearance of the network visualization
-   (nodes + SVG lines). The colors use the site's variables so they match
-   the dark theme.
-   ========================= */
-
-/* Right-side row (photo + network) — aligns both items to the right under the nav */
-#network-container {
-    position: relative;
-    width: 100%;
-    height: 420px; /* desktop default — will shrink on small screens */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.25rem 0 1rem 0; /* reduce top spacing so it sits closer to the h2 */
-}
-
+/* Row placing the photo and network graph side-by-side (or cleanly centered) */
 .right-row {
-    display: flex;
-    justify-content: flex-end; /* push content to the right inside network-inner */
-    align-items: flex-start;
-    gap: 1rem; /* space between photo and network */
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/* Circular photo frame */
+.profile-pic-container {
+  width: 280px;                    /* Clean balanced size */
+  height: 280px;
+  border-radius: 50%;              /* Perfect circle */
+  border: 3px solid var(--accent); /* Sky blue ring */
+  overflow: hidden;                /* CRITICAL: clips the photo inside the circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-card);
+  flex-shrink: 0;                  /* Prevents container from squeezing */
+  position: relative;
+}
+
+/* Headshot image */
+.profile-pic-container .profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;               /* Fills the circle boundary */
+  object-position: center 15%;     /* Vertically frames your face */
+  transform: scale(1.0);           /* Adjust between 0.85 and 1.1 if needed */
+}
+
+/* ==========================================================================
+   NETWORK & SKILLS DIAGRAM ENHANCEMENTS
+   ========================================================================== */
+#network-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 320px;
+}
+
+#layers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* Separates the three functional groups */
+  width: 100%;
+}
+
+/* Group wrapper styling */
+#layers-container > div {
+  background-color: rgba(30, 41, 59, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Individual node items inside groups */
+#layers-container div div,
+#layers-container div span,
+#layers-container div p {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 0.45rem 0.85rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+#layers-container div div:hover,
+#layers-container div span:hover,
+#layers-container div p:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* Ensure SVG connections sit cleanly behind text */
+#connections-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 #connections-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0; /* sits behind the nodes */
-    pointer-events: none; /* let clicks pass to nodes */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-/* Make the layout for the layers explicit and scoped so the network's
-   nodes and columns are styled predictably even if other CSS is present. */
 #layers-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%; /* fill the .network-inner width */
-    max-width: 1200px;
-    z-index: 1; /* nodes sit on top of lines */
-    box-sizing: border-box; /* make sizing predictable */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-/* Prefer more specific selectors so these rules take effect even if there
-   are other, more general styles elsewhere in the stylesheet. */
-#layers-container .column { flex: 1; min-width: 120px; }
-
-.column {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    box-sizing: border-box;
+/* Top primary name heading styling */
+h1.double-underline.fullwidth {
+  text-align: center;
+  font-size: 2.2rem;
+  padding: 1.5rem 0 0.5rem 0;
+  border-bottom: 2px solid var(--border);
+}
+/* Styling for dynamically generated skill elements */
+#layers-container div,
+#layers-container span,
+#layers-container p {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  cursor: default;
 }
 
-.node {
-    display: inline-flex; /* render like a box and allow centering */
-    align-items: center;
-    justify-content: center;
-    /* slightly translucent so the star band underneath can be seen */
-    background: rgba(16, 28, 54, 0.65);
-    border: 2px solid var(--accent);
-    padding: 12px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(79,172,254,0.14);
-    min-width: 140px;
-    color: var(--text);
-    word-break: break-word; /* keep long labels from breaking layout */
-}
-
-.node.active {
-    background: var(--accent);
-    color: var(--bg);
-    box-shadow: 0 0 20px var(--accent);
-    transform: scale(1.06);
-}
-
-/* default SVG line style */
-#connections-layer line {
-    stroke: var(--accent);
-    stroke-width: 1;
-    opacity: 0.18; /* dim by default */
-    transition: opacity 160ms ease, stroke-width 160ms ease;
-}
-
-#connections-layer line.active {
-    opacity: 1; /* bright when active */
-    stroke-width: 2.2;
-}
-
-@media (max-width: 860px) {
-    #network-container { height: 520px; }
-    .column { gap: 18px; }
-    .node { min-width: 120px; padding: 10px 14px; }
-    #layers-container { width: 92%; }
-}
-
-@media (max-width: 520px) {
-    /* stack columns on small screens */
-    #network-container { height: auto; padding: 1rem 0; }
-    #layers-container { flex-direction: column; gap: 6px; width: 94%; }
-    .column { gap: 10px; }
-    .network-group { justify-content: center; }
-    .network-inner { width: 94%; margin: 0 auto; }
-    .centered-h2 { width: 100%; }
-}
-
-/* Slight highlight used for hover preview (not persistent) */
-.node.active-highlight {
-    box-shadow: 0 0 22px rgba(79,172,254,0.28);
-    transform: scale(1.03);
-}
-
-/* Star band placed beneath the network: a narrow horizontal canvas block that
-   matches the .network-inner width so stars don't cover the whole page. */
-.star-band {
-    position: absolute; /* place directly beneath the inner content */
-    left: 0;
-    top: 100%;
-    width: 100%;
-    height: 160px; /* tweakable band height */
-    overflow: hidden;
-    z-index: 0; /* sit behind network content */
-}
-
-/* make sure the right-row content sits above the star band */
-.right-row > .photo-container,
-.right-row > #network-container {
-    position: relative;
-    z-index: 1;
-}
-
-#starfield {
-    display: block;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* don't capture clicks */
+#layers-container div:hover,
+#layers-container span:hover,
+#layers-container p:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
 }
