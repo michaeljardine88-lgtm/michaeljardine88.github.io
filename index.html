@@ -1,43 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="style.css">
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Michael Gordon Jardine | Commercial Strategy, Planning, & Machine Learning</title>
-    </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Gordon Jardine</title>
 
-    <body>
-        <h1 class="double-underline fullwidth">Michael Gordon Jardine</h1>
-        <nav class="navbar">
-            <div class="nav container">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="professional-experience.html">Professional Experience</a></li>
-                    <li><a href="current-projects.html">Current Projects</a></li>
-                </ul>
-            </div>
-        </nav>
-        <!-- Group the heading with the right-aligned photo + network so the H2
-             can be centered over the network container instead of the full page -->
-        <div class="network-group">
-            <div class="network-inner">
-                <h2 class="centered-h2">Connecting Business Strategy, Data Science, and Machine Learning</h2>
-                <!-- Right-side row: photo + network (aligned to the right under the nav) -->
-                <div class="right-row">
-            <div class="profile-pic-container">
-                <img src="images/mj_headshot.jpg" alt="My Headshot" class="profile-pic">
-            </div>
+  <!-- Editorial Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
-            <div id="network-container">
-                <svg id="connections-layer" aria-hidden="true"></svg>
-                <div id="layers-container"></div>
-            </div>
-                </div>
-            </div>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Minimal Transparent Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#" class="logo">MJ</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Editorial Full-Width Hero Section -->
+  <section class="hero-editorial">
+    <div class="hero-image-wrapper">
+      <!-- Your existing image or banner shot -->
+      <img src="images/mj_studying.png" alt="Michael Gordon Jardine" class="hero-banner-img" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-title-container">
+      <h1 class="hero-heading">Strategy &amp; Analytics </h1>
+    </div>
+  </section>
+
+  <!-- Asymmetric Editorial Story Section -->
+  <section class="editorial-story" id="about">
+    <div class="story-container">
+      
+      <!-- Left Column: Tall Portrait Shot -->
+      <div class="story-image-col">
+        <div class="tall-portrait-frame">
+          <img src="images/mj_headshot.jpg" alt="Michael Gordon Jardine" class="tall-portrait-img" />
         </div>
+      </div>
 
-        <script src="script.js"></script>
-    </body>
+      <!-- Right Column: Narrative & Quick Facts -->
+      <div class="story-content-col">
+        <h2 class="editorial-subheading">A few fun facts.</h2>
+        <div class="story-body">
+          <p>
+            Commercial strategy leader with a foundation in management consulting and large-scale beverage alcohol sales operations. Specialized in translating complex market dynamics into rigorous quantitative models, data pipelines, and automated execution frameworks.
+          </p>
+          <p>
+            Combining a passion for data science, alcohol beverage sales, and management principles, I thrive on building solutions that are both innovative and practical.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Minimalist Summary Banner -->
+  <section class="editorial-summary">
+    <div class="summary-container">
+      <span class="eyebrow-label">THIS IS ME IN A NUTSHELL.</span>
+      <p class="summary-statement">
+        Commercial strategist, Python & ML practitioner, outdoor cook, and lifelong builder.
+      </p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Michael Gordon Jardine. All rights reserved.</p>
+  </footer>
+
+</body>
 </html>
