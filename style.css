@@ -1,18 +1,20 @@
 /* ==========================================================================
-   1. DESIGN SYSTEM & VARIABLES
+   1. EDITORIAL DESIGN SYSTEM & VARIABLES
    ========================================================================== */
 :root {
-  --bg-primary: #0f172a;
-  --bg-card: #1e293b;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --accent: #38bdf8;
-  --border: #334155;
-  --max-width: 1000px;
+  --bg-primary: #0a0a0c;         /* Deep rich pitch black */
+  --bg-card: #141417;            /* Subtle dark gray offset */
+  --text-main: #f8fafc;          /* Crisp white */
+  --text-muted: #9ca3af;         /* Soft secondary gray */
+  --accent: #e2e8f0;             /* Muted crisp silver */
+  --border: rgba(255, 255, 255, 0.1);
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --max-width: 1100px;
 }
 
 /* ==========================================================================
-   2. GLOBAL RESET & BASE STYLES
+   2. BASE RESET
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -20,320 +22,258 @@
   padding: 0;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-main);
-  line-height: 1.6;
+html {
+  scroll-behavior: smooth;
 }
 
-/* The Container keeps your content centered with clean margins */
-.container {
-  width: 90%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1rem;
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================================================
-   3. NAVIGATION BAR
+   3. MINIMAL TRANSPARENT HEADER
    ========================================================================== */
-nav.navbar {
-  width: 100%;
-  border-bottom: 1px solid var(--border);
-  background-color: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(8px);
-  position: sticky;
+.site-header {
+  position: absolute;
   top: 0;
-  z-index: 100;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  padding: 1.75rem 0;
 }
 
-/* Center the container and its contents */
-nav .nav-container,
-nav .nav.container {
-  display: flex;
-  justify-content: center; /* Horizontally centers the link group */
-  align-items: center;
-  height: 64px;
+.nav-container {
+  width: 90%;
+  max-width: var(--max-width);
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* The list of links */
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
 .nav-links {
   display: flex;
   list-style: none;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;               /* Clean, balanced spacing between links */
-  padding: 0;
-  margin: 0;
+  gap: 2.25rem;
 }
 
 .nav-links a {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: color 0.25s ease;
 }
 
 .nav-links a:hover {
-  color: var(--accent);
-}
-
-/* ==========================================================================
-   4. CONTENT SECTIONS & HERO
-   ========================================================================== */
-section {
-  padding: 4rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 0.75rem;
   color: #ffffff;
 }
 
-.subtitle {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  max-width: 600px;
-}
-
 /* ==========================================================================
-   5. PROJECT CARDS (CSS Grid)
+   4. EDITORIAL HERO SECTION (CONSTRAINED BANNER)
    ========================================================================== */
-.grid {
-  display: grid;
-  /* Automatically wraps cards to the next row if screen is narrow */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.card {
-  background-color: var(--bg-card);
+.hero-editorial {
+  position: relative;
+  width: 90%;
+  max-width: var(--max-width); /* Keeps it aligned with the content below */
+  aspect-ratio: 4 / 3;          /* Maintains a cinematic widescreen aspect ratio */
+  height: auto;                
+  min-height: unset;           
+  margin: 6rem auto 2rem auto; /* Leaves room for fixed nav at top, centers frame */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;         /* Gives the photo clean, modern framed corners */
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  background-color: var(--bg-primary);
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
+.hero-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.card h3 {
-  margin-bottom: 0.5rem;
-  color: #ffffff;
+.hero-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: brightness(0.6) contrast(1.05);
+  display: block;
 }
 
-.card p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(10, 10, 12, 0.4) 0%, 
+    rgba(10, 10, 12, 0.2) 50%, 
+    rgba(10, 10, 12, 1) 100%
+  );
 }
 
-/* Category pills/tags */
-.tag {
-  display: inline-block;
-  background-color: rgba(56, 189, 248, 0.1);
-  color: var(--accent);
-  padding: 0.2rem 0.55rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-right: 0.3rem;
-  margin-bottom: 0.3rem;
-}
-
-/* ==========================================================================
-   6. BUTTONS & FOOTER
-   ========================================================================== */
-.btn {
-  display: inline-block;
-  padding: 0.55rem 1.1rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.btn:hover {
-  background-color: var(--accent);
-  color: var(--bg-primary);
-}
-
-footer {
-  padding: 2.5rem 0;
+.hero-title-container {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  color: var(--text-muted);
-  font-size: 0.85rem;
+  padding: 0 1.5rem;
 }
-/* ==========================================================================
-   7. HEADER & NETWORK LAYOUT
-   ========================================================================== */
 
-/* Main wrapper for the headline + interactive/photo section */
-.network-group {
+.hero-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   5. ASYMMETRIC EDITORIAL STORY
+   ========================================================================== */
+.editorial-story {
+  padding: 6rem 0;
+  background-color: var(--bg-primary);
+}
+
+.story-container {
   width: 90%;
   max-width: var(--max-width);
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.network-inner h2.centered-h2 {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin-bottom: 2.5rem;
-}
-
-/* Row placing the photo and network graph side-by-side (or cleanly centered) */
-.right-row {
-  display: flex;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
   align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  position: relative;
-  flex-wrap: wrap;
 }
 
-/* Circular photo frame */
-.profile-pic-container {
-  width: 280px;                    /* Clean balanced size */
-  height: 280px;
-  border-radius: 50%;              /* Perfect circle */
-  border: 3px solid var(--accent); /* Sky blue ring */
-  overflow: hidden;                /* CRITICAL: clips the photo inside the circle */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.tall-portrait-frame {
+  width: 100%;
+  max-width: 420px;
+  height: 560px;
+  overflow: hidden;
   background-color: var(--bg-card);
-  flex-shrink: 0;                  /* Prevents container from squeezing */
-  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Headshot image */
-.profile-pic-container .profile-pic {
+.tall-portrait-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;               /* Fills the circle boundary */
-  object-position: center 15%;     /* Vertically frames your face */
-  transform: scale(1.0);           /* Adjust between 0.85 and 1.1 if needed */
+  object-fit: cover;
+  display: block;
+}
+
+.story-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 480px;
+}
+
+.editorial-subheading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.story-body p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
 }
 
 /* ==========================================================================
-   NETWORK & SKILLS DIAGRAM ENHANCEMENTS
+   6. EDITORIAL SUMMARY / ONE-LINER
    ========================================================================== */
-#network-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  min-width: 320px;
-}
-
-#layers-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem; /* Separates the three functional groups */
-  width: 100%;
-}
-
-/* Group wrapper styling */
-#layers-container > div {
-  background-color: rgba(30, 41, 59, 0.6);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-/* Individual node items inside groups */
-#layers-container div div,
-#layers-container div span,
-#layers-container div p {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 0.45rem 0.85rem;
-  border-radius: 5px;
-  font-size: 0.85rem;
-  font-weight: 500;
+.editorial-summary {
+  padding: 5rem 0 7rem;
   text-align: center;
-  transition: all 0.2s ease;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border);
 }
 
-#layers-container div div:hover,
-#layers-container div span:hover,
-#layers-container div p:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateX(4px);
+.summary-container {
+  width: 90%;
+  max-width: 750px;
+  margin: 0 auto;
 }
 
-/* Ensure SVG connections sit cleanly behind text */
-#connections-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+.eyebrow-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
 }
 
-#connections-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.summary-statement {
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.5;
 }
 
-#layers-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* Top primary name heading styling */
-h1.double-underline.fullwidth {
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+.site-footer {
+  padding: 3rem 0;
   text-align: center;
-  font-size: 2.2rem;
-  padding: 1.5rem 0 0.5rem 0;
-  border-bottom: 2px solid var(--border);
-}
-/* Styling for dynamically generated skill elements */
-#layers-container div,
-#layers-container span,
-#layers-container p {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 0.35rem 0.75rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-  cursor: default;
+  border-top: 1px solid var(--border);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
 }
 
-#layers-container div:hover,
-#layers-container span:hover,
-#layers-container p:hover {
-  border-color: var(--accent);
-  transform: translateX(4px);
+/* ==========================================================================
+   8. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 768px) {
+  
+  .story-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .tall-portrait-frame {
+    max-width: 100%;
+    height: 420px;
+    margin: 0 auto;
+  }
+
+  .story-content-col {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .nav-links {
+    gap: 1.25rem;
+  }
 }
